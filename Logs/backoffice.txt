@@ -1,0 +1,139 @@
+2022-02-24 12:41:09.084 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 12:41:14.828 +07:00 [ERR] Error when call service
+2022-02-24 12:41:15.089 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL1 WHERE key_param in ('param.email.subject', 'param.email.to', 'param.email.cc', 'param.email.bcc', 'param.email.from')   
+
+2022-02-24 12:47:58.415 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 12:48:03.796 +07:00 [ERR] Error when call service
+2022-02-24 12:48:03.995 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL1 WHERE key_param in ('param.email.subject', 'param.email.to', 'param.email.cc', 'param.email.bcc', 'param.email.from')   
+
+2022-02-24 12:48:08.356 +07:00 [DBG] CNDS.SQLAccess -- Executing sql non query statement : 
+ INSERT INTO LG_EMAIL_NOTIF (log_id, email_subject, email_to, email_cc, email_bcc, content, status, description, log_by, log_date) VALUES (@log_id, @email_subject, @email_to, @email_cc, @email_bcc, @content, @status, @description, @log_by, @log_date) 
+
+2022-02-24 12:56:13.505 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 12:56:19.012 +07:00 [ERR] Error when call service
+2022-02-24 12:56:19.260 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL1 WHERE key_param in ('param.email.subject', 'param.email.to', 'param.email.cc', 'param.email.bcc', 'param.email.from')   
+
+2022-02-24 12:56:23.630 +07:00 [DBG] CNDS.SQLAccess -- Executing sql non query statement : 
+ INSERT INTO LG_EMAIL_NOTIF (log_id, email_subject, email_to, email_cc, email_bcc, content, status, description, log_by, log_date) VALUES (@log_id, @email_subject, @email_to, @email_cc, @email_bcc, @content, @status, @description, @log_by, @log_date) 
+
+2022-02-24 12:56:36.519 +07:00 [ERR] Error when call service
+2022-02-24 12:56:40.955 +07:00 [DBG] CNDS.SQLAccess -- Executing sql non query statement : 
+ INSERT INTO LG_EMAIL_NOTIF (log_id, email_subject, email_to, email_cc, email_bcc, content, status, description, log_by, log_date) VALUES (@log_id, @email_subject, @email_to, @email_cc, @email_bcc, @content, @status, @description, @log_by, @log_date) 
+
+2022-02-24 12:57:45.587 +07:00 [ERR] Error when call service
+2022-02-24 12:57:50.078 +07:00 [DBG] CNDS.SQLAccess -- Executing sql non query statement : 
+ INSERT INTO LG_EMAIL_NOTIF (log_id, email_subject, email_to, email_cc, email_bcc, content, status, description, log_by, log_date) VALUES (@log_id, @email_subject, @email_to, @email_cc, @email_bcc, @content, @status, @description, @log_by, @log_date) 
+
+2022-02-24 12:57:57.143 +07:00 [ERR] Error when call service
+2022-02-24 12:59:03.264 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 13:06:19.709 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 13:09:23.925 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 13:10:24.229 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 13:10:25.048 +07:00 [INF] CNDS.RequestResponseLoggingMiddleware 
+ Request Message: {"username":"abigael","password":"password","reff_id":"16456830215960","clientId":"CustomerClient","signature":"9E58764279C9715B8F8DECEF35AEA653F1EECFECE5B0E6BDB833DE15EE6BD01A"} 
+ Request Time: "2022-02-24T13:10:24.8437971+07:00" 
+ Response Message: {"username":"abigael","password":"password"} 
+ Response Time: "2022-02-24T13:10:25.0445714+07:00" 
+ Client ID:  
+ Service Name:  
+ Service URL: https://localhost:44393/login 
+ RequestResponse Gap: 0.0033462383333333332
+
+2022-02-24 13:10:25.071 +07:00 [DBG] CNDS.SQLAccess -- Executing sql non query statement : 
+ INSERT INTO lg_service_activities (log_id, source_reff_id, request_message, request_time, response_message, response_time, service_url, service_type, client_id, log_date, response_code) VALUES (@log_id, @source_reff_id, @request_message, @request_time, @response_message, @response_time, @service_url, @service_type, @client_id, @log_date, @response_code) 
+
+2022-02-24 15:36:55.464 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:36:55.538 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:37:44.239 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:37:44.311 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:39:42.653 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:39:42.732 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:41:19.604 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:41:19.686 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:42:28.511 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 15:42:28.581 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 16:19:22.199 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-24 16:19:22.267 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 14:30:42.336 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 14:30:42.401 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 14:31:19.948 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 14:31:20.016 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 17:26:40.552 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 17:26:40.609 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 17:47:27.442 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-02-25 17:47:27.505 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-03-08 11:22:10.777 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-03-08 11:23:36.054 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-03-08 11:26:05.273 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-03-08 11:26:05.406 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-03-08 11:28:40.704 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
+2022-03-08 11:28:40.778 +07:00 [DBG] CNDS.SqlAccess -- Executing sql query statement : 
+ SELECT * FROM MS_PARAMETER_LEVEL2 WHERE key_param = 'param.config.email'   
+
