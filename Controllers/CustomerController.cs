@@ -22,7 +22,14 @@ namespace InqService.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetCustomers([FromBody] CustomerRequest customer)
+        public IActionResult GetCustomer([FromBody] CustomerRequest customer)
+        {
+            CustomerResponse result = _customerRepository.GetCustomer(customer);
+            return Ok(result);
+        }
+
+        [HttpPost("all")]
+        public IActionResult GetCustomers([FromBody] StandardMessage customer)
         {
             CustomerResponse result = _customerRepository.GetCustomers(customer);
             return Ok(result);
