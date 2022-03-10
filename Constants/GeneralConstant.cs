@@ -27,5 +27,6 @@
 		//email config
 		public static readonly string ParameterEmailConfig = "param.config.email";
 		public static readonly string ParameterEmailConfigProperties = "param.config.email.properties";
-    }
+		public static readonly string ParameterRowPerPage = "param.row.per.page";
+	}
 }
