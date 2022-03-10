@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 
 using CNDS.Connection;
@@ -14,13 +15,14 @@ namespace InqService.Repository
 {
     public class CustomerRepository : ICustomerRepository
     {
+        private readonly int rowsPerPage = Int16.Parse(StartupRepository.ht[GeneralConstant
+                .ParameterRowPerPage].ToString());
         public CustomerResponse GetCustomers(CustomerRequest customer)
         {
             DBConnection dbconn = null;
             List<MsCustomer> customers = null;
-            int rowsPerPage = Int16.Parse(
-                        StartupRepository.ht[GeneralConstant.ParameterRowPerPage]
-                        .ToString());
+
+            int allCust = 0;
 
             try
             {
@@ -28,8 +30,6 @@ namespace InqService.Repository
                 SQLStandard sql = new SQLStandard(dbconn);
                 dbconn.BeginTransaction();
 
-                //page.RowsPerPage = Int16.Parse(
-                //    StartupRepository.ht[GeneralConstant.ParameterRowPerPage].ToString());
                 SQLPage page = new SQLPage
                 {
                     PageNo = customer.PageNo,
@@ -40,9 +40,12 @@ namespace InqService.Repository
                     { "oid", CriteriasDB.CrtEqual(customer.Oid) },
                     { "AND cust_name", CriteriasDB.CrtEqual(customer.CustName) }
                 };
-                
                 customers = sql.ExecuteQueryPaging<MsCustomer>(MsCustomer.TableName,
                     null, criterias, null, page);
+
+                DataTable dtAllCust = sql.ExecuteQuery(MsCustomer.TableName,
+                    null, criterias, null);
+                allCust = dtAllCust.Rows.Count;
 
                 dbconn.CommitTransaction();
             }
@@ -55,13 +58,12 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
+            int totalPage = allCust / rowsPerPage;
             Page paging = new Page
             {
                 PageNo = customer.PageNo,
-                //Dummy value
-                TotalPage = 10,
-                //Dummy value
-                TotalRow = 10,
+                TotalPage = totalPage > 1 ? totalPage : 1,
+                TotalRow = allCust,
                 RowPerPage = rowsPerPage
             };
             CustomerResponse resp = new CustomerResponse
