@@ -16,8 +16,7 @@ namespace InqService.Controllers
     public class ParameterController : ControllerBase
     {
         [HttpPost]
-        public IActionResult GetParam([FromQuery] SQLPage page,
-            [FromBody] JsonElement requestBody)
+        public IActionResult GetParam([FromBody] SQLPage page)
         {
             List<ParameterLevel1> result = ParameterRepository.GetPageParameterLvl1(page);
             return Ok(result);
