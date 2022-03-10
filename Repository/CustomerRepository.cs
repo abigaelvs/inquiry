@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
 
 using CNDS.Connection;
@@ -20,7 +19,7 @@ namespace InqService.Repository
             DBConnection dbconn = null;
             List<MsCustomer> customers = null;
             int rowsPerPage = 1;
-            int allCust = 0;
+            int numOfRows = 0;
 
             try
             {
@@ -49,9 +48,7 @@ namespace InqService.Repository
                 customers = sql.ExecuteQueryPaging<MsCustomer>(MsCustomer.TableName,
                     null, criterias, null, page);
 
-                DataTable dtAllCust = sql.ExecuteQuery(MsCustomer.TableName,
-                    null, criterias, null);
-                allCust = dtAllCust.Rows.Count;
+                numOfRows = sql.CountRows(MsCustomer.TableName, criterias);
 
                 dbconn.CommitTransaction();
             }
@@ -64,12 +61,13 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
-            int totalPage = allCust / rowsPerPage;
+            decimal total = (decimal)numOfRows / rowsPerPage;
+            int totalPage = (int)Math.Ceiling(total);
             Page paging = new Page
             {
                 PageNo = customer.PageNo,
-                TotalPage = totalPage > 1 ? totalPage : 1,
-                TotalRow = allCust,
+                TotalPage = totalPage,
+                TotalRow = numOfRows,
                 RowPerPage = rowsPerPage
             };
             CustomerResponse resp = new CustomerResponse
@@ -90,7 +88,7 @@ namespace InqService.Repository
             DBConnection dbconn = null;
             List<MsCustomer> customers = null;
             int rowsPerPage = 1;
-            int allCust = 0;
+            int numOfRows = 0;
 
             try
             {
@@ -113,9 +111,7 @@ namespace InqService.Repository
                 customers = sql.ExecuteQueryPaging<MsCustomer>(MsCustomer.TableName,
                     null, null, null, page);
 
-                DataTable dtAllCust = sql.ExecuteQuery(MsCustomer.TableName,
-                    null, null, null);
-                allCust = dtAllCust.Rows.Count;
+                numOfRows = sql.CountRows(MsCustomer.TableName, null);
 
                 dbconn.CommitTransaction();
             }
@@ -128,13 +124,13 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
-            decimal total = (decimal)allCust / rowsPerPage;
+            decimal total = (decimal)numOfRows / rowsPerPage;
             int totalPage = (int)Math.Ceiling(total);
             Page paging = new Page
             {
                 PageNo = customer.PageNo,
                 TotalPage = totalPage,
-                TotalRow = allCust,
+                TotalRow = numOfRows,
                 RowPerPage = rowsPerPage
             };
             CustomerResponse resp = new CustomerResponse
