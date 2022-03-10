@@ -14,7 +14,7 @@ namespace InqService.Repository
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public CustomerResponse GetCustomers(SQLPage page)
+        public CustomerResponse GetCustomers(CustomerRequest customer)
         {
             DBConnection dbconn = null;
             List<MsCustomer> customers = null;
@@ -25,10 +25,22 @@ namespace InqService.Repository
                 SQLStandard sql = new SQLStandard(dbconn);
                 dbconn.BeginTransaction();
 
-                page.RowsPerPage = Int16.Parse(
-                    StartupRepository.ht[GeneralConstant.ParameterRowPerPage].ToString());
+                //page.RowsPerPage = Int16.Parse(
+                //    StartupRepository.ht[GeneralConstant.ParameterRowPerPage].ToString());
+                SQLPage page = new SQLPage
+                {
+                    PageNo = customer.PageNo,
+                    RowsPerPage = Int16.Parse(
+                        StartupRepository.ht[GeneralConstant.ParameterRowPerPage]
+                        .ToString())
+                };
+                Dictionary<string, string> criterias = new Dictionary<string, string>
+                {
+                    { "oid", CriteriasDB.CrtEqual(customer.Oid) },
+                    { "AND cust_name", CriteriasDB.CrtEqual(customer.CustName) }
+                };
                 customers = sql.ExecuteQueryPaging<MsCustomer>(MsCustomer.TableName,
-                    null, null, null, page);
+                    null, criterias, null, page);
 
                 dbconn.CommitTransaction();
             }
@@ -45,10 +57,10 @@ namespace InqService.Repository
             {
                 ResponseCode = ResponseCodeConstant.RcSuccess,
                 ResponseDesc = ResponseCodeConstant.MsgSuccess,
-                RequestTime = DateTime.Now.ToString(),
-                ChannelId = "Channel Id",
-                SourceReffId = DateTime.Now,
-                PageNo = page.PageNo,
+                RequestTime = customer.RequestTime,
+                ChannelId = customer.ChannelId,
+                SourceReffId = customer.SourceReffId,
+                PageNo = customer.PageNo,
                 CustomerList = customers
             };
             return resp;
