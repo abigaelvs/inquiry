@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CNDS.Connection;
 using CNDS.SqlStandard;
 using CNDS.Utils;
+using CNDS.SqlPaging;
 
 using InqService.Entity;
 
@@ -11,6 +12,33 @@ namespace InqService.Repository
 {
     public class ParameterRepository
     {
+        public static List<ParameterLevel1> GetPageParameterLvl1(SQLPage page)
+        {
+            DBConnection dbconn = null;
+            List<ParameterLevel1> result = null;
+
+            try
+            {
+                dbconn = new DBConnection();
+                SQLStandard sql = new SQLStandard(dbconn);
+                dbconn.BeginTransaction();
+
+                result = sql.ExecuteQueryPaging<ParameterLevel1>(ParameterLevel1.TableName,
+                    null, null, null, page);
+
+                dbconn.CommitTransaction();
+            }
+            catch (Exception ex)
+            {
+                if (dbconn != null) dbconn.Rollback();
+            }
+            finally
+            {
+                if (dbconn != null) dbconn.Close();
+            }
+            return result;
+        }
+
         public static ParameterLevel1 GetParameterLvl1(string keyParam)
         {
             ParameterLevel1 param = null;
