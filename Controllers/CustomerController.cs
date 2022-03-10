@@ -22,9 +22,9 @@ namespace InqService.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetCustomers([FromBody] SQLPage page)
+        public IActionResult GetCustomers([FromBody] CustomerRequest customer)
         {
-            CustomerResponse result = _customerRepository.GetCustomers(page);
+            CustomerResponse result = _customerRepository.GetCustomers(customer);
             return Ok(result);
         }
     }
