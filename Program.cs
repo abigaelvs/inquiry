@@ -22,8 +22,6 @@ namespace InqService
             try
             {
                 CreateHostBuilder(args).Build().Run();
-                StartupRepository.Init();
-                StartupRepository.InitGlobalParam();
             }
             finally
             {

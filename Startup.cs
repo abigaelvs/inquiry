@@ -31,10 +31,15 @@ namespace InqService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(new ConfigurationLoader(Configuration));
+
+            StartupRepository.Init();
+            StartupRepository.InitGlobalParam();
+
             services.AddSingleton<IGlobalRepository>(new GlobalRepository(
                 new EmailRepository(Configuration)));
             services.AddSingleton<IInquiryRepository>(new InquiryRepository(Configuration));
             services.AddSingleton<IEmailRepository>(new EmailRepository(Configuration));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddControllers();
         }
