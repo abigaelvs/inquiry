@@ -18,7 +18,7 @@ namespace InqService.Model
         public string ChannelId { get; set; }
 
         [JsonPropertyName("source_reff_id")]
-        public DateTime SourceReffId { get; set; }
+        public string SourceReffId { get; set; }
 
         [JsonPropertyName("page_no")]
         public int PageNo { get; set; }
