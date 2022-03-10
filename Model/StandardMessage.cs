@@ -20,6 +20,9 @@ namespace InqService.Model
         [JsonPropertyName("source_reff_id")]
         public string SourceReffId { get; set; }
 
+        [JsonPropertyName("page_no")]
+        public int PageNo { get; set; }
+
         public Page Paging { get; set; }
     }
 }
