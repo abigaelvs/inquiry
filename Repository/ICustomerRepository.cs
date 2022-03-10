@@ -6,6 +6,7 @@ namespace InqService.Repository
 {
     public interface ICustomerRepository
     {
-        CustomerResponse GetCustomers(CustomerRequest customer);
+        CustomerResponse GetCustomer(CustomerRequest customer);
+        CustomerResponse GetCustomers(StandardMessage customer);
     }
 }
