@@ -28,7 +28,8 @@ namespace InqService.Repository
                     GeneralConstant.ParameterEmailTo,
                     GeneralConstant.ParameterEmailCc,
                     GeneralConstant.ParameterEmailBcc,
-                    GeneralConstant.ParameterEmailFrom
+                    GeneralConstant.ParameterEmailFrom,
+                    GeneralConstant.ParameterRowPerPage
                 };
                 listParam = ParameterRepository.GetMultipleParameterLvl1(keyParam);
                 
