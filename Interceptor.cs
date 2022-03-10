@@ -80,8 +80,10 @@ namespace InqService
                 log.Add("serviceType", "I");
                 Console.WriteLine($"\n\nLOG>>{JsonSerializer.Serialize(log)}");
 
+                //Set request status to Bad Request
                 context.Response.StatusCode = 400;
 
+                //Set response body to error
                 var respData = Encoding.UTF8.GetBytes(respJson);
                 Stream newBody = new MemoryStream(respData);
                 await newBody.CopyToAsync(originalBodyStream);
@@ -90,35 +92,39 @@ namespace InqService
             {
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
 
+                //TODO: Remove some property from request body before forwarding
                 //Convert requestMsg to Dictionary
-                Dictionary<string, object> requestObj = JsonSerializer
-                    .Deserialize<Dictionary<string, object>>(requestMsg);
-                //Remove some key from request messsage
-                if (requestObj.ContainsKey("reff_id"))
-                    requestObj.Remove("reff_id");
-                if (requestObj.ContainsKey("clientId"))
-                    requestObj.Remove("clientId");
-                if (requestObj.ContainsKey("signature"))
-                    requestObj.Remove("signature");
+                //Dictionary<string, object> requestObj = JsonSerializer
+                //    .Deserialize<Dictionary<string, object>>(requestMsg);
+                ////Remove some key from request messsage
+                //if (requestObj.ContainsKey("reff_id"))
+                //    requestObj.Remove("reff_id");
+                //if (requestObj.ContainsKey("clientId"))
+                //    requestObj.Remove("clientId");
+                //if (requestObj.ContainsKey("signature"))
+                //    requestObj.Remove("signature");
 
-                string newRequestMsg = JsonSerializer.Serialize(requestObj);
-                var newRequestData = Encoding.UTF8.GetBytes(newRequestMsg);
-                Stream newRequestBody = new MemoryStream(newRequestData);
-                await newRequestBody.CopyToAsync(originalBodyStream);
+                //string newRequestMsg = JsonSerializer.Serialize(requestObj);
+                //var newRequestData = Encoding.UTF8.GetBytes(newRequestMsg);
+                //Stream newRequestBody = new MemoryStream(newRequestData);
+                //await newRequestBody.CopyToAsync(originalBodyStream);
 
                 //Set response body to original
-                //await responseBody.CopyToAsync(originalBodyStream);
+                await responseBody.CopyToAsync(originalBodyStream);
 
                 string serviceName = context.Request.Host.ToString();
                 string serviceFrom = "-";
                 string traceId = "";
 
-                Dictionary<string, object> jObject = JsonSerializer
+                if (requestMsg.StartsWith("{") && requestMsg.EndsWith("}"))
+                {
+                    Dictionary<string, object> jObject = JsonSerializer
                     .Deserialize<Dictionary<string, object>>(requestMsg);
-                if (jObject.ContainsKey("serviceFrom")) 
-                    serviceFrom = jObject["serviceFrom"].ToString();
-                if (jObject.ContainsKey("traceId"))
-                    traceId = jObject["traceId"].ToString();
+                    if (jObject.ContainsKey("serviceFrom"))
+                        serviceFrom = jObject["serviceFrom"].ToString();
+                    if (jObject.ContainsKey("traceId"))
+                        traceId = jObject["traceId"].ToString();
+                }
 
                 Dictionary<string, object> log = new Dictionary<string, object>();
                 log.Add("requestMsg", requestMsg.Replace("\u0022", ""));
