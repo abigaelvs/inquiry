@@ -92,22 +92,25 @@ namespace InqService
             {
                 context.Response.Body.Seek(0, SeekOrigin.Begin);
 
-                //TODO: Remove some property from request body before forwarding
-                //Convert requestMsg to Dictionary
-                //Dictionary<string, object> requestObj = JsonSerializer
-                //    .Deserialize<Dictionary<string, object>>(requestMsg);
-                ////Remove some key from request messsage
-                //if (requestObj.ContainsKey("reff_id"))
-                //    requestObj.Remove("reff_id");
-                //if (requestObj.ContainsKey("clientId"))
-                //    requestObj.Remove("clientId");
-                //if (requestObj.ContainsKey("signature"))
-                //    requestObj.Remove("signature");
+                //Clean request body
+                if (requestMsg.StartsWith("{") && requestMsg.EndsWith("}"))
+                {
+                    //Convert requestMsg to Dictionary
+                    Dictionary<string, object> requestObj = JsonSerializer
+                        .Deserialize<Dictionary<string, object>>(requestMsg);
+                    //Remove some key from request messsage
+                    if (requestObj.ContainsKey("reff_id"))
+                        requestObj.Remove("reff_id");
+                    if (requestObj.ContainsKey("clientId"))
+                        requestObj.Remove("clientId");
+                    if (requestObj.ContainsKey("signature"))
+                        requestObj.Remove("signature");
 
-                //string newRequestMsg = JsonSerializer.Serialize(requestObj);
-                //var newRequestData = Encoding.UTF8.GetBytes(newRequestMsg);
-                //Stream newRequestBody = new MemoryStream(newRequestData);
-                //await newRequestBody.CopyToAsync(originalBodyStream);
+                    string newRequestMsg = JsonSerializer.Serialize(requestObj);
+                    var newRequestData = Encoding.UTF8.GetBytes(newRequestMsg);
+                    Stream newRequestBody = new MemoryStream(newRequestData);
+                    await newRequestBody.CopyToAsync(context.Request.Body);
+                }
 
                 //Set response body to original
                 await responseBody.CopyToAsync(originalBodyStream);
