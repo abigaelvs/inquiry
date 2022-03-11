@@ -38,7 +38,6 @@ namespace InqService
 
             //Read request body
             string requestMsg = ReadStreamInChunks(requestStream);
-            string responseMsg = "";
 
             //Set stream position back to 0
             context.Request.Body.Position = 0;
@@ -56,6 +55,9 @@ namespace InqService
             await _next(context);
 
             context.Response.Body.Seek(0, SeekOrigin.Begin);
+
+            string responseMsg = await new StreamReader(context.Response.Body)
+                .ReadToEndAsync();
 
             if (!isValid)
             {
@@ -112,7 +114,7 @@ namespace InqService
                 Dictionary<string, object> log = new Dictionary<string, object>();
                 log.Add("requestMsg", requestMsg.Replace("\u0022", ""));
                 log.Add("requestTime", requestTime);
-                log.Add("responseMsg", responseMsg);
+                log.Add("responseMsg", responseMsg.Replace("\u0022", ""));
                 log.Add("responseTime", DateTime.Now
                     .ToString("yyyy-MM-dd HH:mm:ss.SSS"));
                 log.Add("serviceName", serviceName);
