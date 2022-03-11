@@ -57,17 +57,10 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
-            CustomerResponse resp = new CustomerResponse
-            {
-                ResponseCode = ResponseCodeConstant.RcSuccess,
-                ResponseDesc = ResponseCodeConstant.MsgSuccess,
-                RequestTime = customer.RequestTime,
-                ChannelId = customer.ChannelId,
-                SourceReffId = customer.SourceReffId,
-                ReffId = customer.ReffId,
-                CustomerList = customers,
-                Paging = page
-            };
+            CustomerResponse resp = new CustomerResponse(
+                ResponseCodeConstant.RcSuccess,
+                ResponseCodeConstant.MsgSuccess,
+                customer, page, customers);
             return resp;
         }
 
@@ -108,17 +101,10 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
-            CustomerResponse resp = new CustomerResponse
-            {
-                ResponseCode = ResponseCodeConstant.RcSuccess,
-                ResponseDesc = ResponseCodeConstant.MsgSuccess,
-                RequestTime = customer.RequestTime,
-                ChannelId = customer.ChannelId,
-                SourceReffId = customer.SourceReffId,
-                ReffId = customer.ReffId,
-                CustomerList = customers,
-                Paging = page
-            };
+            CustomerResponse resp = new CustomerResponse(
+                ResponseCodeConstant.RcSuccess,
+                ResponseCodeConstant.MsgSuccess,
+                customer, page, customers);
             return resp;
         }
     }
