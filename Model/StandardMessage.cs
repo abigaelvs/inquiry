@@ -26,6 +26,7 @@ namespace InqService.Model
         public string ReffId { get; set; }
 
         [JsonPropertyName("page_no")]
+        [JsonIgnore]
         public int PageNo { get; set; }
 
         public SQLPage Paging { get; set; }
