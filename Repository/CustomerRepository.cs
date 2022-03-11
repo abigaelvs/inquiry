@@ -18,8 +18,7 @@ namespace InqService.Repository
         {
             DBConnection dbconn = null;
             List<MsCustomer> customers = null;
-            int rowsPerPage = 1;
-            int numOfRows = 0;
+            SQLPage page = null;
 
             try
             {
@@ -33,11 +32,10 @@ namespace InqService.Repository
                 };
                 ParameterLevel1 param = sql.ExecuteQueryFirst<ParameterLevel1>(
                     ParameterLevel1.TableName, null, paramCrit, null);
-                rowsPerPage = Int16.Parse(param.Value1Param);
-                SQLPage page = new SQLPage
+                page = new SQLPage
                 {
                     PageNo = customer.PageNo,
-                    RowsPerPage = rowsPerPage
+                    RowsPerPage = Int16.Parse(param.Value1Param)
                 };
 
                 Dictionary<string, string> criterias = new Dictionary<string, string>
@@ -48,8 +46,6 @@ namespace InqService.Repository
                 customers = sql.ExecuteQueryPaging<MsCustomer>(MsCustomer.TableName,
                     null, criterias, null, page);
 
-                numOfRows = sql.CountRows(MsCustomer.TableName, criterias);
-
                 dbconn.CommitTransaction();
             }
             catch (Exception ex)
@@ -61,15 +57,6 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
-            decimal total = (decimal)numOfRows / rowsPerPage;
-            int totalPage = (int)Math.Ceiling(total);
-            Page paging = new Page
-            {
-                PageNo = customer.PageNo,
-                TotalPage = totalPage,
-                TotalRow = numOfRows,
-                RowPerPage = rowsPerPage
-            };
             CustomerResponse resp = new CustomerResponse
             {
                 ResponseCode = ResponseCodeConstant.RcSuccess,
@@ -77,8 +64,9 @@ namespace InqService.Repository
                 RequestTime = customer.RequestTime,
                 ChannelId = customer.ChannelId,
                 SourceReffId = customer.SourceReffId,
+                ReffId = customer.ReffId,
                 CustomerList = customers,
-                Paging = paging
+                Paging = page
             };
             return resp;
         }
@@ -87,8 +75,7 @@ namespace InqService.Repository
         {
             DBConnection dbconn = null;
             List<MsCustomer> customers = null;
-            int rowsPerPage = 1;
-            int numOfRows = 0;
+            SQLPage page = null;
 
             try
             {
@@ -102,16 +89,13 @@ namespace InqService.Repository
                 };
                 ParameterLevel1 param = sql.ExecuteQueryFirst<ParameterLevel1>(
                     ParameterLevel1.TableName, null, paramCrit, null);
-                rowsPerPage = Int16.Parse(param.Value1Param);
-                SQLPage page = new SQLPage
+                page = new SQLPage
                 {
                     PageNo = customer.PageNo,
-                    RowsPerPage = rowsPerPage
+                    RowsPerPage = Int16.Parse(param.Value1Param)
                 };
                 customers = sql.ExecuteQueryPaging<MsCustomer>(MsCustomer.TableName,
                     null, null, null, page);
-
-                numOfRows = sql.CountRows(MsCustomer.TableName, null);
 
                 dbconn.CommitTransaction();
             }
@@ -124,15 +108,6 @@ namespace InqService.Repository
                 if (dbconn != null) dbconn.Close();
             }
 
-            decimal total = (decimal)numOfRows / rowsPerPage;
-            int totalPage = (int)Math.Ceiling(total);
-            Page paging = new Page
-            {
-                PageNo = customer.PageNo,
-                TotalPage = totalPage,
-                TotalRow = numOfRows,
-                RowPerPage = rowsPerPage
-            };
             CustomerResponse resp = new CustomerResponse
             {
                 ResponseCode = ResponseCodeConstant.RcSuccess,
@@ -140,8 +115,9 @@ namespace InqService.Repository
                 RequestTime = customer.RequestTime,
                 ChannelId = customer.ChannelId,
                 SourceReffId = customer.SourceReffId,
+                ReffId = customer.ReffId,
                 CustomerList = customers,
-                Paging = paging
+                Paging = page
             };
             return resp;
         }
