@@ -28,8 +28,7 @@ namespace InqService.Config
             try
             {
                 MailSender = new SmtpClient();
-                NetworkCredential credential = new NetworkCredential(
-                "bf0cb9c54318f7", "83fec05318a404");
+                NetworkCredential credential = new NetworkCredential();
 
                 List<ParameterLevel2> listEmailConfig = ParameterRepository
                     .GetListParameterLvl2(GeneralConstant.ParameterEmailConfig);
