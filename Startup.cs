@@ -39,7 +39,7 @@ namespace InqService
                 new EmailRepository(Configuration)));
             services.AddSingleton<IInquiryRepository>(new InquiryRepository(Configuration));
             services.AddSingleton<IEmailRepository>(new EmailRepository(Configuration));
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddSingleton<ICustomerRepository, CustomerRepository>();
 
             services.AddControllers();
         }
