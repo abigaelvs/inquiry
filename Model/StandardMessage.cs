@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
+using CNDS.SqlPaging;
+
 namespace InqService.Model
 {
     public class StandardMessage
@@ -20,9 +22,12 @@ namespace InqService.Model
         [JsonPropertyName("source_reff_id")]
         public string SourceReffId { get; set; }
 
+        [JsonPropertyName("reff_id")]
+        public string ReffId { get; set; }
+
         [JsonPropertyName("page_no")]
         public int PageNo { get; set; }
 
-        public Page Paging { get; set; }
+        public SQLPage Paging { get; set; }
     }
 }
