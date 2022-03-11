@@ -11,11 +11,15 @@ namespace InqService.Repository
     {
         public static string GenerateRequest(string jsonRequest)
         {
+            string date = DateTime.Now.ToString("ddMMyyyy");
+
             Dictionary<string, object> unsortMap = GetAllStringJson(jsonRequest);
+            unsortMap.Add("request_time", DateTime.Now.ToString());
 
             Dictionary<string, object> obj = JsonSerializer
                 .Deserialize<Dictionary<string, object>>(jsonRequest);
-            string date = DateTime.Now.ToString("ddMMyyyy");
+            obj.Add("request_time", DateTime.Now.ToString());
+
             string value = "";
             SortedDictionary<string, object> treeMap = new 
                 SortedDictionary<string, object>(unsortMap);
