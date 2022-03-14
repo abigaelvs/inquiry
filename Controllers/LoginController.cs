@@ -22,9 +22,8 @@ namespace InqService.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] JsonElement requestBody)
         {
-            string wrapperUrl = "https://localhost:44393/login";
             string result = await _inquiryRepository.SendRedirect(requestBody.ToString(),
-                wrapperUrl, Request);
+                "/login", Request);
             return Ok(result);
         }
     }
