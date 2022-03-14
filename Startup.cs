@@ -14,6 +14,7 @@ using System.Net.Http;
 
 using CNDS.Configuration;
 
+using InqService.Config;
 using InqService.Repository;
 
 namespace InqService
@@ -35,10 +36,18 @@ namespace InqService
             StartupRepository.Init();
             StartupRepository.InitGlobalParam();
 
-            services.AddSingleton<IGlobalRepository>(new GlobalRepository(
-                new EmailRepository(Configuration)));
+            services.AddSingleton<EmailConfig>();
+            services.AddSingleton<IEmailRepository>(sp =>
+            {
+                EmailConfig emailConfig = sp.GetService<EmailConfig>();
+                return new EmailRepository(Configuration, emailConfig);
+            });
+            services.AddSingleton<IGlobalRepository>(sp =>
+            {
+                IEmailRepository emailRepo = sp.GetService<IEmailRepository>();
+                return new GlobalRepository(emailRepo);
+            });
             services.AddSingleton<IInquiryRepository>(new InquiryRepository(Configuration));
-            services.AddSingleton<IEmailRepository>(new EmailRepository(Configuration));
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
 
             services.AddControllers();
