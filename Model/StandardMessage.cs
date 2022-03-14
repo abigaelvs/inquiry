@@ -29,7 +29,7 @@ namespace InqService.Model
         public string ReffId { get; set; }
 
         [JsonPropertyName("page_no")]
-        [JsonIgnore]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int PageNo { get; set; }
 
         public SQLPage Paging { get; set; }
