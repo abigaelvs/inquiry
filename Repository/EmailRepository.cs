@@ -16,13 +16,14 @@ namespace InqService.Repository
 {
     public class EmailRepository : IEmailRepository
     {
-        public EmailConfig MailSender = new EmailConfig();
+        public EmailConfig MailSender;
 
         private string EmailNotifContent { get; set; }
 
-        public EmailRepository(IConfiguration conf)
+        public EmailRepository(IConfiguration conf, EmailConfig mailSender)
         {
             EmailNotifContent = conf.GetSection("EmailNotifContent").Value;
+            MailSender = mailSender;
         }
 
         public void SendEmailNotif(string errorCode, Exception ex)
