@@ -29,8 +29,8 @@ namespace InqService.Repository
 
             try
             {
-                response = await GlobalRepository.CallService(url,
-                    requestBody);
+                response = await GlobalRepository.CallService(
+                    WrapperHostName + url + request.QueryString, requestBody);
             }
             catch (InvalidUrlException ex)
             {
