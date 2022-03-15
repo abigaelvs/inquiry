@@ -14,18 +14,11 @@ namespace InqService.Model
         [JsonPropertyName("customer_list")]
         public List<MsCustomer> CustomerList { get; set; }
 
-        public CustomerResponse(string responseCode, string responseDesc, 
-            CustomerRequest customer, SQLPage page, List<MsCustomer> customers)
-            : base(responseCode, responseDesc, customer.RequestTime, customer.ChannelId,
-                customer.SourceReffId, customer.ReffId, page)
-        {
-            CustomerList = customers;
-        }
+        public CustomerResponse() { }
 
         public CustomerResponse(string responseCode, string responseDesc,
-            StandardMessage customer, SQLPage page, List<MsCustomer> customers)
-            : base(responseCode, responseDesc, customer.RequestTime, customer.ChannelId,
-                customer.SourceReffId, customer.ReffId, page)
+            List<MsCustomer> customers, SQLPage page)
+            : base (responseCode, responseDesc, page)
         {
             CustomerList = customers;
         }
