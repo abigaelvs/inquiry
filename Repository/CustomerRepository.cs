@@ -58,9 +58,10 @@ namespace InqService.Repository
             }
 
             CustomerResponse resp = new CustomerResponse(
-                ResponseCodeConstant.RcSuccess,
-                ResponseCodeConstant.MsgSuccess,
-                customer, page, customers);
+                ResponseCodeConstant.RcSuccess, ResponseCodeConstant.MsgSuccess, 
+                customers, page);
+            PropertyCopier<CustomerRequest, CustomerResponse>.CopyProperties(customer, resp);
+
             return resp;
         }
 
@@ -102,9 +103,10 @@ namespace InqService.Repository
             }
 
             CustomerResponse resp = new CustomerResponse(
-                ResponseCodeConstant.RcSuccess,
-                ResponseCodeConstant.MsgSuccess,
-                customer, page, customers);
+                ResponseCodeConstant.RcSuccess, ResponseCodeConstant.MsgSuccess, 
+                customers, page);
+            PropertyCopier<StandardMessage, CustomerResponse>.CopyProperties(customer, resp);
+            
             return resp;
         }
     }
