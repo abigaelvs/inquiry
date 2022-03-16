@@ -40,7 +40,7 @@ namespace InqService.Repository
                 response = await GlobalRepository.CallService(
                     WrapperHostName + url + request.QueryString, requestBody);
             }
-            catch (InvalidUrlException ex)
+            catch (InvalidUrlException)
             {
                 throw new InvalidUrlException();
             }
