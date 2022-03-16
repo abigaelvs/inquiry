@@ -8,9 +8,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO;
 
+using CNDS.Utils;
+
 using InqService.Constants;
 using InqService.Model;
-using InqService.Repository;
 
 namespace InqService
 {

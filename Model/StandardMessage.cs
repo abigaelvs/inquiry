@@ -26,11 +26,11 @@ namespace InqService.Model
         [JsonPropertyName("channel_id")]
         public string ChannelId { get; set; }
 
-        [JsonPropertyName("source_reff_id")]
-        public string SourceReffId { get; set; }
+        [JsonPropertyName("source_ref_id")]
+        public string SourceRefId { get; set; }
 
-        [JsonPropertyName("reff_id")]
-        public string ReffId { get; set; }
+        [JsonPropertyName("ref_id")]
+        public string RefId { get; set; }
 
         [JsonPropertyName("page_no")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
