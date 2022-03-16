@@ -37,6 +37,7 @@ namespace InqService.Model
         [NoCopyProperty]
         public int PageNo { get; set; }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [NoCopyProperty]
         public SQLPage Paging { get; set; }
 
@@ -48,6 +49,13 @@ namespace InqService.Model
             ResponseDesc = responseDesc;
             ResponseTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             Paging = page;
+        }
+
+        public StandardMessage(string responseCode, string responseDesc)
+        {
+            ResponseCode = responseCode;
+            ResponseDesc = responseDesc;
+            ResponseTime = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
         }
     }
 }
