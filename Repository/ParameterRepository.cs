@@ -28,7 +28,7 @@ namespace InqService.Repository
 
                 dbconn.CommitTransaction();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (dbconn != null) dbconn.Rollback();
             }
