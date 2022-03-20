@@ -9,6 +9,6 @@ namespace InqService.Repository
     {
         Task<string> SendRedirect(string requestBody, string url, HttpRequest request);
         LoginResponse DoLogin(LoginRequest requestData);
-        //SelectUnitResponse SelectUnit(SelectUnitRequest requestData);
+        SelectUnitResponse SelectUnit(SelectUnitRequest requestData);
     }
 }

@@ -110,5 +110,112 @@ namespace InqService.Repository
             }
             return respData;
         }
+
+        public SelectUnitResponse SelectUnit(SelectUnitRequest requestData)
+        {
+            SelectUnitResponse respData = new SelectUnitResponse(ResponseCodeConstant.RcSuccess, ResponseCodeConstant.MsgSuccess);
+            PropertyCopier<SelectUnitRequest, SelectUnitResponse>.CopyProperties(requestData, respData);
+            
+            DBConnection dbconn = null;
+            SQLStandard sql = null;
+            List<MsPrivilege> privileges = null;
+            List<MsGroup> groups = null;
+            List<MsGroupPrivilege> groupPrivileges = null;
+            List<MsActionPrivilege> actionPrivileges = null;
+            List<MsGroupActionPrivilege> groupActionPrivileges = null;
+
+            try
+            {
+                dbconn = new DBConnection();
+                sql = new SQLStandard(dbconn);
+
+                String roleId = requestData.DataUser.RoleId;
+                roleId = roleId.Replace(",", "','");
+                Dictionary<string, string> criterias = new Dictionary<string, string>
+                {
+                    { "ums_group_id in ", " ('"+roleId+"')" }
+                };
+                groups = sql.ExecuteQueryList<MsGroup>(MsGroup.TableName, null, criterias, null);
+                String groupId = "";
+                if (groups != null && groups.Count > 0) {
+                    groups.ForEach(p => groupId += p.GroupId+",");
+                    groupId = groupId.Substring(0, groupId.Length-1);
+                }
+                
+                criterias = new Dictionary<string, string>
+                {
+                    { "group_id in ", " ("+groupId+")" }
+                };
+                groupPrivileges = sql.ExecuteQueryList<MsGroupPrivilege>(MsGroupPrivilege.TableName, null, criterias, null);
+                groupActionPrivileges = sql.ExecuteQueryList<MsGroupActionPrivilege>(MsGroupActionPrivilege.TableName, null, criterias, null);
+                String moduleId = "";
+                if (groupPrivileges != null && groupPrivileges.Count > 0) {
+                    groupPrivileges.ForEach(p => moduleId += p.ModuleId+"','");
+                    moduleId = moduleId.Substring(0, moduleId.Length-3);
+                }
+                String actionId = "";
+                if (groupActionPrivileges != null && groupActionPrivileges.Count > 0) {
+                    groupActionPrivileges.ForEach(p => actionId += p.ActionId+"','");
+                    actionId = actionId.Substring(0, actionId.Length-3);
+                }
+                
+                criterias = new Dictionary<string, string>
+                {
+                    { "module_id in ", " ('"+moduleId+"')" }
+                };
+                actionPrivileges = sql.ExecuteQueryList<MsActionPrivilege>(MsActionPrivilege.TableName, null, criterias, null);
+                privileges = sql.ExecuteQueryList<MsPrivilege>(MsPrivilege.TableName, null, criterias, null);
+                String parentId = "";
+                if (privileges != null && privileges.Count > 0) {
+                    privileges.ForEach(p => parentId += p.ParentId+"','");
+                    parentId = parentId.Substring(0, parentId.Length-3);
+
+                    criterias = new Dictionary<string, string>
+                    {
+                        { "module_id in ", " ('"+parentId+"')" }
+                    };
+                    List<MsPrivilege> parentPrivileges = sql.ExecuteQueryList<MsPrivilege>(MsPrivilege.TableName, null, criterias, null);
+                    if (parentPrivileges != null && parentPrivileges.Count > 0) privileges.AddRange(parentPrivileges);
+                }
+
+                Dictionary<string, List<MsPrivilege>> mapPrivilege = new Dictionary<string, List<MsPrivilege>>();
+                Dictionary<string, List<MsActionPrivilege>> mapActionPrivilege = new Dictionary<string, List<MsActionPrivilege>>();
+                mapPrivilege = privileges.GroupBy(r => r.ParentId).ToDictionary(g => g.Key, g => g.ToList());
+                mapActionPrivilege = actionPrivileges.GroupBy(r => r.ModuleId).ToDictionary(g => g.Key, g => g.ToList());
+
+                Dictionary<string, MsPrivilege> parentPrivilege = new Dictionary<string, MsPrivilege>();
+                
+                List<PrivilegeAccess> listPrivAccess = new List<PrivilegeAccess>();
+                foreach (MsPrivilege c in mapPrivilege[""])
+                {
+                    Console.WriteLine("KEY1>"+c.ModuleId);
+                     
+                }
+
+                Console.WriteLine("\n\nMASUK"+mapPrivilege.Count);
+                foreach (KeyValuePair<string, List<MsPrivilege>> c in mapPrivilege)
+                {
+                    Console.WriteLine("KEY>"+c.Key);
+                    foreach (MsPrivilege item in c.Value)
+                    {
+                        Console.WriteLine("Value>"+item.ModuleId);
+                    }
+                }
+                //groups.ForEach(p => Console.WriteLine(p.GroupId));
+                //groupPrivileges.ForEach(p => Console.WriteLine(p.ModuleId));
+                //Console.WriteLine(groupId);
+                Console.WriteLine("KELUAR");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nMessage ---\n{0}", ex.Message );
+                Console.WriteLine("\nStackTrace ---\n{0}", ex.StackTrace );
+            }
+            finally
+            {
+                if (dbconn != null) dbconn.Close();
+            }
+            return respData;
+        }
     }
 }
