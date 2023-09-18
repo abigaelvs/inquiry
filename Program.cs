@@ -18,6 +18,7 @@ namespace InqService
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("==== TEST COMMIT ===");
             LogFactory.Configure();
             try
             {
